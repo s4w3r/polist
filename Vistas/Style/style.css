@@ -1,0 +1,233 @@
+.barra {
+    display: flex;
+    margin-top: 1%;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+}
+
+.Boton {
+    margin-left: 45%;
+    margin-top: 1.5%;
+    border: none;
+    background-color: transparent;
+    height: 110px;
+    width: 220px;
+    font-size: 130%;
+    font-family: 'Merriweather', serif;
+    font-family: 'Noto Serif', serif;
+}
+
+.Boton-2 {
+    margin-left: 8%;
+    margin-top: 1.5%;
+    border: none;
+    background-color: transparent;
+    height: 105px;
+    width: 200px;
+    font-size: 135%;
+    font-family: 'Merriweather', serif;
+    font-family: 'Noto Serif', serif;
+}
+
+#Manzana {
+    margin-top: 1%;
+    width: 100px;
+    height: 100px;
+}
+
+#todo {
+    min-height: 100vh;
+    position: relative;
+}
+
+#Video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#Vide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+
+#Manza {
+    width: 35%;
+    height: 20%;
+    margin-top: 15%;
+    margin-left: 32%;
+    position: absolute;
+}
+
+#Ma {
+    margin-top: 25%;
+    margin-left: 35%;
+    width: 550px;
+    height: 500px;
+    position: absolute;
+}
+
+
+.ini {
+    position: absolute;
+    display: flex;
+    margin-left: 37%;
+    margin-top: 8%;
+    color: whitesmoke;
+    border: 0;
+    padding: 20px 15px;
+    border-radius: 18px 10px;
+    background: rgb(14 165 233);
+}
+
+.formu {
+    position: absolute;
+    display: flex;
+    margin-left: 38%;
+    margin-top: 18%;
+    flex-direction: column;
+    font-size: 17px;
+    padding: 7px;
+    
+}
+
+.docu {
+    text-align: center;
+    width: 210px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+.doc {
+    width: 200px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+
+
+.botones {
+    position: absolute;
+    display: flex;
+    margin-left: 50%;
+    margin-top: 70%;
+    color: whitesmoke;
+    border: 0;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px 20px;
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.botones-2 {
+    position: absolute;
+    display: flex;
+    margin-left: -5%;
+    margin-top: 19%;
+    color: whitesmoke;
+    border: 0;
+    width: 80px;
+    height: 50px;
+    border-radius: 5px 20px;
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.name {
+    display: flex;
+    text-align: center;
+    width: 210px;
+    height: 35px;
+    border-radius: 10px;     
+}
+
+.doxu {
+    display: flex;
+    text-align: center;
+    width: 210px;
+    height: 35px;
+    border-radius: 10px; 
+}
+
+.dox {
+    display: flex;
+    text-align: center;
+    width: 210px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+.manzo {
+    display: flex;
+    text-align: center;
+    width: 210px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+
+
+
+.botunos {
+    position: absolute;
+    display: flex;
+    margin-left: 50%;
+    margin-top: 20%;
+    color: whitesmoke;
+    border: 0;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px 20px;
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+    
+}
+
+.botunos-2 {
+    position: absolute;
+    display: flex;
+    margin-left: -5%;
+    margin-top: 19%;
+    color: whitesmoke;
+    border: 0;
+    width: 80px;
+    height: 50px;
+    border-radius: 5px 20px;
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.formul {
+    position: absolute;
+    display: flex;
+    margin-left: 38%;
+    margin-top: 15%;
+    flex-direction: column;
+    font-size: 17px;
+    padding: 8px;
+}
+
+.regi {
+    position: absolute;
+    display: flex;
+    margin-left: 38%;
+    margin-top: 7%;
+    color: whitesmoke;
+    border: 0;
+    padding: 35px 35px;
+    border-radius: 18px 10px;
+    background: rgb(14 165 233);
+}
+
+

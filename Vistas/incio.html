@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Style/style.css">
+</head>
+<body>
+    <h1 class="ini">Ingrese sus datos</h1>
+    <form class="formu" action="http://localhost:3000/inicio" method="POST">
+        <label id="docu" for="Tipo_documento">Tipo de documento: </label>
+
+        <select class="docu" name="Tipo_documento" id="Tipo_documento">
+
+        
+            <option>Cedula de Ciudadania</option>
+            <option >Tarjeta de Identidad</option>
+            <option>Cedula Extranjera</option>
+            <option>Documento Extranjero</option>
+            <option>Pasaporte</option>
+            <option>Registro Civil</option>
+
+        </select>
+        <label id="Documento">Documento: </label> 
+        <input class="doc" type="tel" name="Documento" id="Documento">
+
+        <input class="botones" type="submit" value="Iniciar sesion">
+        <a href="index.html"><input class="botones-2" type="button" value="Atras"></a>
+
+    </form>
+
+
+    
+</body>
+</html>

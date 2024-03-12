@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="absolute w-96 px-5 py-2 border-2 rounded-lg border-x-gray-300 shadow-md shadow-gray-700 mt-12 mx-11 text-lg font-bold">
+    <h1>Hola <span id="Nombreadmin">     
+    </span>, eres una zorra administrativa</h1>
+    </div>
+    <!-- USUARIO -->
+    <input class="absolute px-3 py-2 border-2 rounded-lg border-x-blue-300 border-y-blue-300 bg-sky-400 text-white shadow-md shadow-gray-600/70 mt-44 mx-48 text-lg font-bold" id="Mostrarusu" type="button" value="Usuarios Registrados">
+    <div class="absolute px-5 py-2 mt-60 mx-48 border-2 rounded-md border-x-blue-100 border-y-blue-100 bg-sky-100 shadow-md  text-lg font-medium" id="Momento usuario">
+        
+        <ul id="Usuarios"></ul>   
+        <input class="grid mt-5 mx-24 border-2 px-3 py-2 border-x-sky-200 border-y-sky-200 bg-sky-200 shadow-md font-bold hover:bg-sky-300" id="Eliminarusu" type="submit" value="Eliminar"> 
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded',()=>{
+
+            const xhrUsuario= new XMLHttpRequest();
+                xhrUsuario.open('POST','/obtener-usuaries',true);
+                xhrUsuario.onreadystatechange=function(){
+                 if(xhrUsuario.readyState===4){
+                     if(xhrUsuario.status === 200){
+                        const usuarie=JSON.parse(xhrUsuario.response);
+            document.getElementById('Nombreadmin').textContent=usuarie.Nombre
+        }
+        else{
+        console.error('Error al obtener usuario')
+    }
+}
+};
+xhrUsuario.send();
+
+        //USUARIOS REGISTRADOS
+        const Mostrarusu = document.getElementById('Mostrarusu');
+        const Usuarios = document.getElementById('Usuarios');
+        const Eliminarusu = document.getElementById('Eliminarusu');
+
+        //MANZANAS REGISTRADAS
+        const Mostrarma = document.getElementById('Mostrarma');
+        const Manzanas = document.getElementById('Manzanas');
+
+
+        //MOSTRAR USUARIOS REGISTRADOS
+        Mostrarusu.addEventListener('click', async(event)=>{
+            event.preventDefault()
+            const xhru= new XMLHttpRequest();
+            xhru.open('POST','/obtener-usuarios',true);
+            xhru.setRequestHeader('Content-type','application/json');
+            xhru.onreadystatechange=function(){
+                if(xhru.readyState===4){
+                    if(xhru.status === 200){
+                        const data=JSON.parse(xhru.responseText); //DE JSON A CUALQUIER OTRA
+                        Usuarios.innerHTML=data.
+                        usuario.map(usuario=>`<li><label><input type="checkbox" name="usuario" value="${usuario}">${usuario[0]}-${usuario[1]}-${usuario[2]}-${usuario[3]}-${usuario[4]}</label></li>
+                        `).join('');
+                    }
+                    else{
+                        console.error('Error al obtener los usuarios');
+                    }
+                }
+            }
+            xhru.send();
+    })
+
+    //Eliminar usuario
+    Eliminarusu.addEventListener('click',async(event)=>{
+        event.preventDefault();
+        const usuarias = Array.from(Usuarios.querySelectorAll('li input[type="checkbox"]')).filter(checkbox=>checkbox.checked).map
+        (checkbox=>checkbox.value)
+        console.log(usuarias)   
+        const xhruese = new XMLHttpRequest()
+        xhruese.open('POST','/eliminar-usuarios',true)
+        xhruese.setRequestHeader('Content-type','application/json')
+        xhruese.onreadystatechange = function (){
+            if(xhruese.readyState===4){
+                if(xhruese.status === 200){
+                    window.location.reload();
+                }
+                else{
+                    console.error('Error al borrar usuario')
+                }       
+            }
+        }
+        xhruese.send(JSON.stringify({usuario: usuarias}))
+       })
+
+         })
+    </script>
+</body>
+</html>
+

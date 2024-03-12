@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style/style.css">
+    <title>Registro</title>
+</head>
+<body>
+    <main>
+        <section id="Reg">
+            <h1 class="regi">Registro de datos</h1>
+            <form  class="formul" action="http://localhost:3000/crear" method="POST">
+                <div id="name">
+                    <label id="name" for="">Nombre</label>
+                    <input class="name" type="text" name="Nombre" required>
+                </div>
+                <div id="doxu">
+                    <label id="doxu" for="">Tipo de documento</label>
+                    <select class="doxu" name="Tipo_documento" required>
+                        <option>Cedula de Ciudadania</option>
+                        <option selected>Tarjeta de Identidad</option>
+                        <option>Cedula Extranjera</option>
+                        <option>Documento Extranjero</option>
+                        <option>Pasaporte</option>
+                        <option>Registro Civil</option>
+                    </select>
+                </div id="manzo">
+                <label id="manzo" for="Codigo_m">Manzanas</label>
+                <select class="manzo" name="Codigo_m" id="TD">
+                    <option value=2>Colina</option>
+                    <option value=3>Molinos</option>
+                </select>
+
+                <div id="dox">
+                    <label class="dox" for="">Documento</label>
+                    <input class="dox" type="tel" maxlength="15" name="Documento" required>
+                </div>
+                <div id="butn">
+                    <a href="index.html"><input class="botunos" type="submit" value="Enviar"></a>
+                    <a href="index.html"><input class="botunos-2" type="button" value="Atras"></a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

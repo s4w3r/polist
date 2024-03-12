@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body> 
+    <!-- NOMBRE DE USUARIO -->
+     <div class="absolute w-96 px-5 py-2 border-2 rounded-lg border-x-gray-300 shadow-md shadow-gray-700 mt-12 mx-11 text-lg font-bold">
+        <h1>Hola <span id="NombreUsuario">    
+        </span>, te estabamos esperando.</h1>
+    </div> 
+    <!-- BOTONES DE SERVICIOS -->
+    <input class="absolute px-3 py-2 border-2 rounded-lg border-x-blue-300 border-y-blue-300 bg-sky-400 text-white shadow-md shadow-gray-600/70 mt-44 mx-48 text-lg font-bold" id="s_disponibles" type="button" value="Servicio disponibles">
+    <div class="absolute px-5 py-2 mt-60 mx-48 border-2 rounded-md border-x-blue-100 border-y-blue-100 bg-sky-100 shadow-md  text-lg font-medium"  id="contenedor_servicios">
+        <form id="form_servi">
+            <ul id="lista_servi"></ul>
+            <input class="font-normal" type="datetime-local" id="fechaHora" name="fechaHora">
+            <input class="grid mt-5 mx-24 border-2 px-3 py-2 border-x-sky-200 border-y-sky-200 bg-sky-200 shadow-md font-bold hover:bg-sky-300" id="contenedor_servicios" type="submit" value="Guardar">
+            
+        </form>
+         
+    </div>
+    <!-- BOTONES DE SOLICITUDES -->
+    <input class="absolute px-3 py-2 border-2 rounded-lg border-x-blue-300 border-y-blue-300 bg-sky-400 text-white shadow-md shadow-gray-600/70 mt-44 mx-96 left-1/3 text-lg font-bold" id="mostrarSoli" type="button" value="Mostrar solicitudes">
+    <div class="absolute w-72 px-16 py-2 mt-60 mx-96 left-1/3 border-2 rounded-md border-x-blue-100 border-y-blue-100 bg-sky-100 shadow-md  text-lg font-medium" id="m_soli">
+     
+        <ul class="" id="Solicitudes"></ul>
+            <input class="grid mt-5 mx-5 border-2 px-3 py-2 border-x-sky-200 border-y-sky-200 bg-sky-200 shadow-md font-bold hover:bg-sky-300" id="eliminar-soli" type="button" value="Eliminar">
+    </div>
+    <input class="absolute top-0 right-5 h-16 text-lg font-bold" 
+    id="cerrarse" type="button" value="Cerrrar sesión">
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+
+        const xhrUsuario= new XMLHttpRequest();
+        xhrUsuario.open('POST','/obtener-usuaries',true);
+        xhrUsuario.onreadystatechange=function(){
+            if(xhrUsuario.readyState===4){
+                if(xhrUsuario.status === 200){
+                    const usuarie=JSON.parse(xhrUsuario.response);
+                    document.getElementById('NombreUsuario').textContent=usuarie.Nombre
+                }
+                else{
+                console.error('Error al obtener usuario')
+            }
+        }
+    };
+    xhrUsuario.send();
+
+    const form_servi = document.getElementById('form_servi');
+    const s_disponibles=document.getElementById('s_disponibles');
+    const mostrarSoli = document.getElementById('mostrarSoli');
+    const Solicitudes = document.getElementById('Solicitudes');
+    const Eliminarsoli = document.getElementById('eliminar-soli');
+    const cerrarse = document.getElementById('cerrarse')
+
+    //MOSTRAR SERVICIOS
+    s_disponibles.addEventListener('click',()=>{
+            const xhr= new XMLHttpRequest();
+            xhr.open('POST','/obtener-servicios-usuario',true);
+            xhr.setRequestHeader('Content-type','application/json');
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4){
+                    if(xhr.status === 200){
+                        const data=JSON.parse(xhr.responseText); //DE JSON A CUALQUIER OTRA
+                        lista_servi.innerHTML=data.
+                        servicios.map(servicios=>`<li><label><input type="checkbox" name="servicios" value="${servicios}">${servicios}</label></li>
+                        `).join('');
+                    }
+                    else{
+                        console.error('Error al obtener servicios de usuario');
+                    }
+                }
+            };
+            xhr.send(JSON.stringify()); //TRANSFOMARLO A JSON (CLAVE VALOR)
+        })
+
+
+        
+    //Seleccionar servicios
+        form_servi.addEventListener('submit', async()=>{
+        event.preventDefault();
+       const servicioselec = Array.from(form_servi.elements['servicios']).filter(checkbox=>checkbox.checked).map(checkbox=>checkbox.value)
+       const fechaHora = form_servi.elements['fechaHora'].value;
+       const xhrsave = new XMLHttpRequest();
+       xhrsave.open('POST','/guardar-servicios-usuario',true);
+       xhrsave.setRequestHeader('Content-type','application/json');
+       xhrsave.onreadystatechange = function(){
+        if(xhrsave.readyState === 4){
+            if(xhrsave.status === 200){
+                console.log('Datos guardados')
+            }
+            else{
+                console.error('Error al cargar datos');
+            }
+        }
+       };
+       xhrsave.send(JSON.stringify({servicios: servicioselec, fechaHora: fechaHora}));
+    });
+        //MOSTRAR LAS SOLICITUDES
+        mostrarSoli.addEventListener('click',()=>{
+        const xhrmos = new XMLHttpRequest();
+        xhrmos.open('POST','/Solicitudes-usuario',true)
+        xhrmos.setRequestHeader('Content-type','application/json')
+        xhrmos.onreadystatechange = function(){
+            if(xhrmos.readyState===4){
+                if(xhrmos.status === 200){
+                    const dax = JSON.parse(xhrmos.responseText)
+                    Solicitudes.innerHTML = dax.solicitud.map((solicitud)=>`
+                    <li><input type="checkbox" value="${solicitud}">${solicitud[0]}<p>-</p>${solicitud[1]}</li>
+                    `).join('');
+                }
+                else{
+                    console.error('Error al entrar al servidor')
+                }
+                
+            }
+        }
+        xhrmos.send(JSON.stringify())
+       })
+
+       //Borrar solicitudes
+       Eliminarsoli.addEventListener('click',async(event)=>{
+        event.preventDefault();
+        const solicituas = Array.from(Solicitudes.querySelectorAll('li input[type="checkbox"]')).filter(checkbox=>checkbox.checked).map
+        (checkbox=>checkbox.value)
+        const xhreliso = new XMLHttpRequest()
+        xhreliso.open('POST','/eliminar-solicitudes',true)
+        xhreliso.setRequestHeader('Content-type','application/json')
+        xhreliso.onreadystatechange = function (){
+            if(xhreliso.readyState===4){
+                if(xhreliso.status === 200){
+                    console.log('Solicitud eliminada')
+                }
+                else{
+                    console.error('Error al borrar solicitud')
+                }   
+            }
+        }
+        xhreliso.send(JSON.stringify({solicitudes: solicituas}))
+       })
+
+       //CERRAR SESIÓN
+       cerrarse.addEventListener('click',()=>{
+        const xhrcerrar = new XMLHttpRequest();
+        xhrcerrar.open('POST','/cerrar-usuario', true);
+        xhrcerrar.onreadystatechange = function(){
+            if(xhrcerrar.readyState===4){
+                if(xhrcerrar.status === 200){
+                    window.location.href = 'http://127.0.0.1:5500/Vistas/index.html'
+                    console.log('Cerrar sesion')
+                }
+                else{
+                    console.error('Error al cerrar sesion')
+                }   
+            }
+        }
+        xhrcerrar.send()
+        
+       })
+       window.onload=function(){
+            window.history.forward()
+        };
+        window.onpageshow=function(event){
+            if(event.persisted){
+                window.location.reload();
+            }
+        }
+
+    })
+</script>
+
+
+<!-- <script>
+    document.getElementById('NombreUsuario').innerText= getParameterByName('usuarie');
+    function getParameterByName(name){
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+</script> -->
+
+</body>
+</html>
